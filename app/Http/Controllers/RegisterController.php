@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -23,6 +25,13 @@ class RegisterController extends Controller
 
         ]);
 
-        dd('Cretating');
+        User::create([
+            'name' => $request->name,
+            'username' => Str::slug($request->username),
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        return redirect()->route('post.index');
     }
 }
